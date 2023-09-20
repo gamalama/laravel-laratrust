@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Permission;
 use App\Http\Controllers\Controller;
+use App\Models\Permission;
 use App\Traits\FlashAlert;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;

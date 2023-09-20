@@ -1,15 +1,18 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laratrust\Traits\LaratrustUserTrait;
+use Laratrust\Contracts\LaratrustUser;
+use Laratrust\Traits\HasRolesAndPermissions;
 
-class User extends Authenticatable
+//use Laratrust\Traits\LaratrustUserTrait;
+
+class User extends Authenticatable implements LaratrustUser
 {
-    use LaratrustUserTrait;
+//    use LaratrustUserTrait;
+    use HasRolesAndPermissions;
     use Notifiable;
 
     /**

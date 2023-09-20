@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Laratrust\Models\LaratrustRole;
+use Laratrust\Models\Role as LaratrustRole;
 
 class Role extends LaratrustRole
 {

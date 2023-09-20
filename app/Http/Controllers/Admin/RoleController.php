@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Permission;
-use App\Role;
+use App\Models\Permission;
+use App\Models\Role;
 use App\Traits\FlashAlert;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -56,7 +56,8 @@ class RoleController extends Controller
             'description' => $request->input('description'),
         ]);
 
-        $role->attachPermissions($request->input('permissions_id'));
+//        $role->attachPermissions($request->input('permissions_id'));
+        $role->givePermissions($request->input('permissions_id'));
 
         return redirect()->route('admin.role.index')->with($this->alertCreated());
     }
@@ -133,7 +134,7 @@ class RoleController extends Controller
     {
         try {
             $role = Role::findOrFail($id);
-            $role->detachPermissions($role->permissions()->get()->pluck('id')->toArray());
+            $role->removePermissions($role->permissions()->get()->pluck('id')->toArray());
             $role->forceDelete();
 
             return redirect()->route('admin.role.index')->with($this->alertDeleted());

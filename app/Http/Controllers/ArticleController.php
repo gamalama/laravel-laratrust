@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
+use App\Models\Article;
 use App\Traits\FlashAlert;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -74,8 +74,9 @@ class ArticleController extends Controller
             $article = Article::findOrFail($id);
 
             if (
-                request()->user()->hasRole(['superadmin', 'admin']) ||
-                request()->user()->isAbleToAndOwns('update-articles', $article)
+                request()->user()->hasRole(['superadmin', 'admin'])
+//                ||
+//                request()->user()->isAbleToAndOwns('update-articles', $article)
             ) {
                 return view('pages.article.edit', compact('article'));
             } else {
@@ -99,8 +100,9 @@ class ArticleController extends Controller
             $article = Article::findOrFail($id);
 
             if (
-                request()->user()->hasRole(['superadmin', 'admin']) ||
-                request()->user()->isAbleToAndOwns('update-articles', $article)
+                request()->user()->hasRole(['superadmin', 'admin'])
+//                ||
+//                request()->user()->isAbleToAndOwns('update-articles', $article)
             ) {
                 $this->validate($request, [
                     'title' => ['required', 'string', 'max:255'],
@@ -131,8 +133,9 @@ class ArticleController extends Controller
             $article = Article::findOrFail($id);
 
             if (
-                request()->user()->hasRole(['superadmin']) ||
-                request()->user()->isAbleToAndOwns('delete-articles', $article)
+                request()->user()->hasRole(['superadmin'])
+//                ||
+//                request()->user()->isAbleToAndOwns('delete-articles', $article)
             ) {
                 $article->delete();
 

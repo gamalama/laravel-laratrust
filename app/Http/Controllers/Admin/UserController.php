@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Role;
-use App\User;
+use App\Models\Role;
+use App\Models\User;
+use App\Traits\FlashAlert;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Traits\FlashAlert;
 
 class UserController extends Controller
 {
@@ -59,7 +59,8 @@ class UserController extends Controller
 
         $role = Role::find($request->role_id);
 
-        $user->attachRole($role);
+//        $user->attachRole($role);
+        $user->addRole($role);
 
         return redirect()->route('admin.user.index')->with($this->alertCreated());
     }
@@ -119,12 +120,13 @@ class UserController extends Controller
             $roles = $user->roles;
 
             foreach ($roles as $role) {
-                $user->detachRole($role);
+//                $user->detachRole($role);
+                $user->removeRole($role);
             }
 
             $role = Role::find($request->role_id);
 
-            $user->attachRole($role);
+            $user->addRole($role);
 
             return redirect()->route('admin.user.index')->with($this->alertUpdated());
         } catch (ModelNotFoundException $e) {
@@ -146,7 +148,8 @@ class UserController extends Controller
             $roles = $user->roles;
 
             foreach ($roles as $role) {
-                $user->detachRole($role);
+//                $user->detachRole($role);
+                $user->removeRole($role);
             }
 
             $user->delete();
